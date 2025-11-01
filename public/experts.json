@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Alice Green",
+    "specialization": "Indoor Plants & Air Purifiers",
+    "image": "https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=60"
+  },
+  {
+    "id": 2,
+    "name": "Bob Bloom",
+    "specialization": "Flowering Plants & Garden Design",
+    "image": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=500&q=60"
+  },
+  {
+    "id": 3,
+    "name": "Clara Leaf",
+    "specialization": "Succulents & Low Maintenance Plants",
+    "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=60"
+  },
+  {
+    "id": 4,
+    "name": "David Root",
+    "specialization": "Plant Nutrition & Soil Care",
+    "image": "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=500&q=60"
+  }
+]

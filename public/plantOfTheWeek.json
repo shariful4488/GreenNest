@@ -1,0 +1,12 @@
+{
+    "plantId": 3,
+    "plantName": "Peace Lily",
+    "category": "Flowering Plant",
+    "price": 22,
+    "rating": 4.7,
+    "availableStock": 8,
+    "careLevel": "Medium",
+    "description": "The Peace Lily is a popular indoor plant known for its elegant white flowers and glossy green leaves. 🤍🌿 It thrives in low to medium light and is relatively easy to care for. Peace Lilies help purify indoor air and bring a sense of calm and freshness to any room. 🏡✨",
+    "image": "https://i.ibb.co.com/BV71KXFf/tree2.jpg",
+    "providerName": "UrbanGreen Studio"
+  }

@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Watering",
+    "icon": "💧",
+    "tip": "Water your plants 1-2 times a week. Avoid overwatering."
+  },
+  {
+    "id": 2,
+    "title": "Sunlight",
+    "icon": "☀️",
+    "tip": "Place plants near windows with indirect sunlight for 4-6 hours daily."
+  },
+  {
+    "id": 3,
+    "title": "Fertilizing",
+    "icon": "🌱",
+    "tip": "Feed your plants with liquid fertilizer once a month during growing season."
+  }
+]

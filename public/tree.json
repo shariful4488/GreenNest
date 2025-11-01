@@ -1,0 +1,74 @@
+[
+  {
+    "plantId": 1,
+    "plantName": "Snake Plant",
+    "category": "Air Purifier",
+    "price": 18,
+    "rating": 4.8,
+    "availableStock": 10,
+    "careLevel": "Easy",
+    "description": "Purifies air and thrives in low light.",
+    "image": "https://i.ibb.co.com/YBn9c5Qz/snak-plant.webp",
+    "providerName": "UrbanGreen Studio"
+  },
+  {
+    "plantId": 2,
+    "plantName": "Spider Plant",
+    "category": "Air Purifier",
+    "price": 15,
+    "rating": 4.5,
+    "availableStock": 12,
+    "careLevel": "Easy",
+    "description": "Removes toxins from the air and grows quickly.",
+    "image": "https://i.ibb.co.com/xSMRLCt7/spider-plant.webp",
+    "providerName": "GreenLeaf Nursery"
+  },
+  {
+    "plantId": 3,
+    "plantName": "Peace Lily",
+    "category": "Flowering Plant",
+    "price": 22,
+    "rating": 4.7,
+    "availableStock": 8,
+    "careLevel": "Medium",
+    "description": "Beautiful white flowers and improves indoor air quality.",
+    "image": "https://i.ibb.co.com/BV71KXFf/tree2.jpg",
+    "providerName": "UrbanGreen Studio"
+  },
+  {
+    "plantId": 4,
+    "plantName": "Aloe Vera",
+    "category": "Succulent",
+    "price": 12,
+    "rating": 4.6,
+    "availableStock": 15,
+    "careLevel": "Easy",
+    "description": "Easy to grow, purifies air, and useful for skin care.",
+    "image": "https://i.ibb.co.com/spx5Z7bm/alovera-tree.jpg",
+    "providerName": "Nature's Touch"
+  },
+  {
+    "plantId": 5,
+    "plantName": "Fiddle Leaf Fig",
+    "category": "Indoor Tree",
+    "price": 35,
+    "rating": 4.4,
+    "availableStock": 5,
+    "careLevel": "Hard",
+    "description": "Trendy indoor tree with large, violin-shaped leaves.",
+    "image": "https://i.ibb.co.com/jPtHxYmS/Fiddle-leaf.webp",
+    "providerName": "GreenLeaf Nursery"
+  },
+  {
+    "plantId": 6,
+    "plantName": "ZZ Plant",
+    "category": "Low Light Plant",
+    "price": 20,
+    "rating": 4.5,
+    "availableStock": 9,
+    "careLevel": "Easy",
+    "description": "Tolerates low light and drought conditions.",
+    "image": "https://i.ibb.co.com/5hwk1FHt/ZZ-plant.webp",
+    "providerName": "UrbanGreen Studio"
+  }
+]
