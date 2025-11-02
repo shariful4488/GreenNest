@@ -2,65 +2,66 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Register = () => {
-  const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
+  const { createUser, signInWithGoogle, updateUser } = useContext(AuthContext);
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
-
-  const [nameError, setNameError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [submitError, setSubmitError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handlePasswordChange = (e) => {
-    const value = e.target.value;
-    const errors = [];
-    if (value.length < 6) errors.push("Length must be at least 6 characters");
-    if (!/[A-Z]/.test(value)) errors.push("Must have an Uppercase letter");
-    if (!/[a-z]/.test(value)) errors.push("Must have a Lowercase letter");
-    if (!/\d/.test(value)) errors.push("Must have a Number");
-    setPasswordError(errors.join(", "));
-  };
 
   const handleRegister = (e) => {
     e.preventDefault();
-    setSubmitError("");
+    setError("");
 
-    const form = e.target;
-    const name = form.name.value.trim();
-    const photo = form.photo.value.trim();
-    const email = form.email.value.trim();
-    const password = form.password.value;
+    const displayName = e.target.name.value.trim();
+    const photoURL = e.target.photo.value.trim();
+    const email = e.target.email.value.trim();
+    const password = e.target.password.value;
 
-    if (name.length < 5) {
-      setNameError("Name must be at least 5 characters long.");
-      return;
-    } else {
-      setNameError("");
-    }
-
-    if (passwordError) return; 
+    if (!displayName) return setError("Please enter your name.");
+    if (!email) return setError("Please enter your email address.");
+    if (!password) return setError("Please enter your password.");
+    if (password.length < 6)
+      return setError("Password must be at least 6 characters long.");
+    if (!/[A-Z]/.test(password))
+      return setError("Password must include at least one uppercase letter.");
+    if (!/[a-z]/.test(password))
+      return setError("Password must include at least one lowercase letter.");
+    if (!/\d/.test(password))
+      return setError("Password must include at least one number.");
 
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        updateUser({ displayName: name, photoURL: photo })
-          .then(() => navigate("/"))
-          .catch(() => navigate("/"));
+
+        updateUser({ displayName, photoURL })
+          .then(() => {
+            toast.success("Account created successfully!");
+            navigate("/");
+          })
+          .catch((error) => {
+            toast.error(error.message);
+          });
       })
       .catch((error) => {
         if (error.code === "auth/email-already-in-use") {
-          setSubmitError("The email is already in use.");
+          setError("This email is already registered!");
+        } else if (error.code === "auth/weak-password") {
+          setError("Password should be at least 6 characters.");
         } else {
-          setSubmitError(error.message);
+          setError("Something went wrong. Please try again later.");
         }
       });
   };
 
   const handleGoogleRegister = () => {
     signInWithGoogle()
-      .then(() => navigate("/"))
-      .catch((error) => setSubmitError(error.message));
+      .then(() => {
+        toast.success("Signed up with Google successfully!");
+        navigate("/");
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (
@@ -72,34 +73,46 @@ const Register = () => {
 
         <form onSubmit={handleRegister} className="card-body">
           <label className="label">Name</label>
-          <input name="name" type="text" className="input input-bordered w-full" placeholder="Name" required />
-          {nameError && <p className="text-red-500 text-xs mt-1">{nameError}</p>}
+          <input
+            name="name"
+            type="text"
+            className="input input-bordered w-full"
+            placeholder="Your Name"
+          />
 
           <label className="label">Photo URL</label>
-          <input name="photo" type="text" className="input input-bordered w-full" placeholder="Photo URL" />
+          <input
+            name="photo"
+            type="text"
+            className="input input-bordered w-full"
+            placeholder="Photo URL"
+          />
 
           <label className="label">Email</label>
-          <input name="email" type="email" className="input input-bordered w-full" placeholder="Email" required />
+          <input
+            name="email"
+            type="email"
+            className="input input-bordered w-full"
+            placeholder="Email Address"
+          />
 
           <label className="label">Password</label>
           <div className="relative">
             <input
               name="password"
-              type={showPassword ? "text" : "password"}
+              type={show ? "text" : "password"}
               className="input input-bordered w-full pr-10"
               placeholder="Password"
-              onChange={handlePasswordChange}
-              required
             />
             <span
               className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500"
-              onClick={() => setShowPassword(!showPassword)}
+              onClick={() => setShow(!show)}
             >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
+              {show ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
-          {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
-          {submitError && <p className="text-red-500 text-sm mt-2">{submitError}</p>}
+
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
           <button type="submit" className="btn btn-neutral mt-4 w-full">
             Register
