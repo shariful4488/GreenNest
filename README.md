@@ -9,6 +9,8 @@ Currently, two official plugins are available:
 
 ## React Compiler
 
+Live Link: https://jazzy-donut-9bc256.netlify.app/
+
 The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
 ## Expanding the ESLint configuration
