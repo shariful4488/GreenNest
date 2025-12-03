@@ -62,6 +62,16 @@ const Navbar = () => {
           My Profile
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/add-services"
+          className={({ isActive }) =>
+            isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
+          }
+        >
+          Add Service
+        </NavLink>
+      </li>
     </>
   );
 

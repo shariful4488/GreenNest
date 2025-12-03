@@ -10,6 +10,7 @@ import PlantDetails from "../pages/PlantDetails";
 import PrivateRoute from "../provider/PrivateRoute";
 import ForgetPassword from "../pages/ForgetPassword";
 import Loading from "../components/Loading";
+import AddService from "../pages/AddService";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       </h1>
     ),
   },
+  {
+     path:"/add-services",
+     element:<AddService/>
+  }
 ]);
 
 export default router;

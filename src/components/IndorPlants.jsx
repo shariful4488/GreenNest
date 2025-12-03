@@ -6,11 +6,13 @@ const IndoorPlants = () => {
   const [plants, setPlants] = useState([]);
 
   useEffect(() => {
-    fetch("/tree.json")
+    fetch("http://localhost:3000/services")
       .then((res) => res.json())
       .then((data) => setPlants(data))
       .catch((err) => console.error(err));
   }, []);
+
+  console.log(plants);
 
   return (
     <div className="py-10 max-w-7xl mx-auto px-4">
@@ -31,7 +33,7 @@ const IndoorPlants = () => {
             />
 
             <div className="p-4">
-              <h2 className="text-xl font-semibold mt-2">{plant.plantName}</h2>
+              <h2 className="text-xl font-semibold mt-2">{plant.title}</h2>
               <p className="text-green-600 font-bold mt-1">${plant.price}</p>
 
               <p className="mt-1 text-gray-700 font-semibold flex items-center gap-1">
@@ -42,7 +44,7 @@ const IndoorPlants = () => {
               </p>
 
               <Link
-                to={`/plantDetails/${plant.plantId}`}
+                to={`/plantDetails/${plant?._id}`}
                 className="mt-3 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 cursor-pointer w-full block text-center font-semibold transition duration-200"
               >
                 View Details

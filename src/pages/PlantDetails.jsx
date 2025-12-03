@@ -1,35 +1,26 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useLoaderData, useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
-import plantData from "../../public/tree.json";
 import { AuthContext } from "../provider/AuthProvider";
 import { toast } from "react-toastify";
-
-
 
 const PlantDetails = () => {
   const { plantId } = useParams();
   const { user } = useContext(AuthContext);
   const [plant, setPlant] = useState(null);
-  const data = useLoaderData();
-  
 
   useEffect(() => {
-    
-    const timer = setTimeout(() => {
-      const foundPlant = plantData.find(
-        (p) => p.plantId === parseInt(plantId)
-      );
-      if (foundPlant) {
-        setPlant({
-          ...foundPlant,
-          lightNeeds: foundPlant.lightNeeds || "Bright Indirect Sunlight",
-          size: foundPlant.size || "Medium",
-        });
+    const fetchPlant = async () => {
+      try {
+        const res = await fetch(`http://localhost:3000/services/${plantId}`);
+        const data = await res.json();
+        setPlant(data);
+      } catch (err) {
+        console.error(err);
       }
-    }, 800); 
+    };
 
-    return () => clearTimeout(timer);
+    fetchPlant();
   }, [plantId]);
 
   const handleBookConsultation = (e) => {
@@ -38,10 +29,9 @@ const PlantDetails = () => {
     const name = form.name.value;
     const email = form.email.value;
 
-    toast.success(
-      `Thank You ${name}  Our expert will contact you soon.`,
-      { autoClose: 4000 }
-    );
+    toast.success(`Thank You ${name}, our expert will contact you soon.`, {
+      autoClose: 4000,
+    });
 
     form.reset();
   };
@@ -55,7 +45,7 @@ const PlantDetails = () => {
   }
 
   const renderRatingStars = (rating) => {
-    const fullStars = Math.floor(rating);
+    const fullStars = Math.floor(rating || 0);
     return (
       <span className="flex items-center gap-0.5">
         {[...Array(fullStars)].map((_, i) => (
@@ -68,7 +58,7 @@ const PlantDetails = () => {
   return (
     <div className="container mx-auto p-4 my-10 max-w-6xl">
       <h1 className="text-4xl font-extrabold text-green-800 mb-8 text-center">
-        {plant.plantName}
+        {plant.title}
       </h1>
 
       <div className="bg-white p-6 md:p-10 shadow-xl rounded-2xl">
@@ -76,19 +66,19 @@ const PlantDetails = () => {
           <div className="flex flex-col gap-4">
             <img
               src={plant.image}
-              alt={plant.plantName}
+              alt={plant.title}
               className="w-full h-auto object-cover rounded-xl shadow-lg"
             />
             <p className="text-gray-500 text-sm">
               <strong>Current Stock:</strong>{" "}
               <span className="font-semibold text-gray-700">
-                {plant.availableStock} units
+                {plant.availableStock || 10} units
               </span>
             </p>
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold mb-2">{plant.plantName}</h2>
+            <h2 className="text-2xl font-bold mb-2">{plant.title}</h2>
             <p className="text-sm text-gray-500">Category: {plant.category}</p>
 
             <div className="flex justify-between items-end my-4 border-b pb-4">
@@ -104,9 +94,7 @@ const PlantDetails = () => {
               <h3 className="text-xl font-semibold text-gray-700 mb-2">
                 Description
               </h3>
-              <p className="text-gray-600 leading-relaxed">
-                {plant.description}
-              </p>
+              <p className="text-gray-600 leading-relaxed">{plant.description}</p>
             </div>
 
             <div className="space-y-2">
@@ -115,26 +103,27 @@ const PlantDetails = () => {
               </h3>
               <div className="grid grid-cols-2 text-gray-700 border-b pb-2">
                 <span className="font-medium">Care Level:</span>
-                <span>{plant.careLevel}</span>
+                <span>{plant.careLevel || "Medium"}</span>
               </div>
               <div className="grid grid-cols-2 text-gray-700 border-b pb-2">
                 <span className="font-medium">Size:</span>
-                <span>{plant.size}</span>
+                <span>{plant.size || "Medium"}</span>
               </div>
               <div className="grid grid-cols-2 text-gray-700 border-b pb-2">
                 <span className="font-medium">Light Needs:</span>
-                <span>{plant.lightNeeds}</span>
+                <span>{plant.lightNeeds || "Bright Indirect Sunlight"}</span>
               </div>
               <div className="grid grid-cols-2 text-gray-700 pt-2">
                 <span className="font-medium">Provider:</span>
                 <span className="text-blue-600 font-semibold">
-                  {plant.providerName}
+                  {plant.providerName || "Unknown"}
                 </span>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div className="mt-12 max-w-xl mx-auto p-8 bg-white shadow-xl rounded-2xl border border-green-100">
         <h2 className="text-3xl font-bold text-center text-green-700 mb-6">
           Book Consultation
@@ -161,6 +150,7 @@ const PlantDetails = () => {
             <input
               type="email"
               name="email"
+              defaultValue={user?.email || ""}
               placeholder="Enter your email"
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 transition"
