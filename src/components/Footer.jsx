@@ -44,6 +44,9 @@ const Footer = () => {
         { name: "All Plants", href: "/plants" },
         { name: "Profile", href: "/profile" },
         { name: "Add Service", href: "/add-services" },
+        { name: "My Services", href: "/my-services" },
+        { name: "My Orders", href: "/my-orders" },
+
         
       ],
     },
@@ -54,6 +57,7 @@ const Footer = () => {
         { name: "About Us", href: "#about" },
         { name: "Privacy Policy", href: "#privacy" },
         { name: "Contact", href: "#contact" },
+        
       ],
     },
   ];

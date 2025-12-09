@@ -72,6 +72,26 @@ const Navbar = () => {
           Add Service
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/my-services"
+          className={({ isActive }) =>
+            isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
+          }
+        >
+          My Service
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/my-orders"
+          className={({ isActive }) =>
+            isActive ? "text-green-600 font-semibold" : "hover:text-green-600"
+          }
+        >
+          My Orders
+        </NavLink>
+      </li>
     </>
   );
 

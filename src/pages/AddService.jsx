@@ -1,7 +1,5 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import Navbar from "../components/Navbar"; 
-import Footer from "../components/Footer";
 import { AuthContext } from "../provider/AuthProvider";
 
 const AddService = () => {
@@ -71,8 +69,7 @@ const AddService = () => {
 
   return (
     <div className="min-h-screen bg-green-50">
-      <Navbar />
-
+      
       <div className="max-w-3xl mx-auto my-12 p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-green-900 mb-6 text-center">
           Add New Service
@@ -190,7 +187,7 @@ const AddService = () => {
         </form>
       </div>
 
-      <Footer />
+      
     </div>
   );
 };
