@@ -14,19 +14,12 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      toast.success("Logged out successfully!", {
-        position: "top-right",
-        autoClose: 2000,
-        pauseOnHover: false,
-      });
+      toast.success("Logged out successfully!", { autoClose: 2000 });
       setDropdownOpen(false);
       setMobileMenuOpen(false);
-
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
+      setTimeout(() => navigate("/"), 2000);
     } catch (err) {
-      toast.error(err.message, { position: "top-right" });
+      toast.error(err.message);
     }
   };
 
@@ -96,39 +89,41 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="bg-white sticky top-0 z-50 shadow">
-      <ToastContainer /> 
-      <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
+    <nav className="bg-white sticky top-0 z-50 shadow-md">
+      <ToastContainer />
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2 text-green-700 text-xl font-bold">
-          <FaLeaf className="text-green-600" />
-          GreenNest
+          <FaLeaf className="text-green-600" /> GreenNest
         </Link>
 
+        {/* Desktop Links */}
         <ul className="hidden md:flex items-center gap-8">{navLinks}</ul>
+
+        {/* User / Auth Buttons */}
         <div className="hidden md:flex items-center gap-3">
           {user ? (
             <div className="relative">
+              {/* Avatar toggle */}
               <div
-                className="btn btn-ghost btn-circle avatar"
+                className="cursor-pointer"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                <div className="w-10 rounded-full">
-                  <img
-                    src={
-                      user.photoURL ||
-                      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    }
-                    alt="User Avatar"
-                  />
-                </div>
+                <img
+                  src={
+                    user.photoURL ||
+                    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  }
+                  alt="User"
+                  className="w-10 h-10 rounded-full border-2 border-green-500"
+                />
               </div>
 
               {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-52 bg-base-100 rounded shadow-lg z-50">
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden z-50">
                   <p className="px-4 py-2 font-semibold border-b">{user.displayName || "User"}</p>
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100 transition"
                   >
                     Logout
                   </button>
@@ -153,13 +148,18 @@ const Navbar = () => {
           )}
         </div>
 
+        {/* Mobile Toggle */}
         <div className="md:hidden">
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="text-green-600 focus:outline-none"
+          >
             {mobileMenuOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
           </button>
         </div>
       </div>
-      
+
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white shadow-lg">
           <ul className="flex flex-col gap-2 p-4">
@@ -169,7 +169,7 @@ const Navbar = () => {
                 <p className="font-semibold px-2 py-1">{user.displayName || "User"}</p>
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left px-2 py-1 hover:bg-gray-100"
+                  className="w-full text-left px-2 py-1 hover:bg-gray-100 transition"
                 >
                   Logout
                 </button>

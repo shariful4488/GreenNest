@@ -18,10 +18,13 @@ import MyOrder from "../pages/MyOrder";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeLayout />,
+    element: <HomeLayout/>,
     children: [
+      // Public Pages
       { path: "", element: <Home /> },
       { path: "plants", element: <Plants />, hydrateFallbackElement: <Loading /> },
+
+      // Protected Pages (Login required)
       {
         path: "plantDetails/:plantId",
         element: (
@@ -31,9 +34,14 @@ const router = createBrowserRouter([
         ),
         hydrateFallbackElement: <Loading />,
       },
-      { path: "profile", element: <MyProfile /> },
-
-      // ⭐ Move these inside HomeLayout
+      {
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <MyProfile />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "add-services",
         element: (
@@ -69,7 +77,7 @@ const router = createBrowserRouter([
     ],
   },
 
-  // Auth Routes
+  // Auth Pages
   {
     path: "/auth",
     element: <Authlayout />,
@@ -80,7 +88,7 @@ const router = createBrowserRouter([
     ],
   },
 
-  // 404
+  // 404 Not Found
   {
     path: "*",
     element: <h1 className="text-center text-4xl mt-20">404 | Page Not Found</h1>,
